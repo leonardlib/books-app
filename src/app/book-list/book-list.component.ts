@@ -1,36 +1,30 @@
 import { Component, OnInit } from '@angular/core';
-import { Book } from '../book';
+import { Store } from '@ngrx/store';
 import { BookService } from '../book.service';
+import { selectBooks } from '../book.selectors';
+import { getBooksReceived } from '../book.actions';
 
 @Component({
   selector: 'app-book-list',
   templateUrl: './book-list.component.html',
 })
 export class BookListComponent implements OnInit {
-  books!: Book[];
+  books$ = this.store.select(selectBooks);
   isLoading: boolean;
 
-  constructor(private bookService: BookService) {
+  constructor(private store: Store, private bookService: BookService) {
     this.isLoading = true;
   }
 
   ngOnInit(): void {
-    this.bookService.getBooks().subscribe(({ data }) => {
-      this.books = data;
-      this.isLoading = false;
-    });
+    this.getBooks();
   }
 
-  onScroll(): void {
-    if (this.books.length < 50) {
-      this.isLoading = true;
-      this.bookService.getBooks().subscribe(({data}) => {
-        this.books = [
-          ...this.books,
-          ...data,
-        ];
-        this.isLoading = false;
-      });
-    }
+  getBooks(): void {
+    this.isLoading = true;
+    this.bookService.getBooks().subscribe(({ data }) => {
+      this.store.dispatch(getBooksReceived({ books: data }))
+      this.isLoading = false;
+    });
   }
 }
