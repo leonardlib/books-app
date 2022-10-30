@@ -36,7 +36,7 @@ describe('BookComponent', () => {
 
   it('should render the book attributes', () => {
     // arrange
-    const description = book.description.length >= 99 ? book.description.slice(0, 98) + '...' : book.description;
+    const description = book.description.length >= 90 ? book.description.slice(0, 87) + '...' : book.description;
     const published = formatDate(book.published, 'mediumDate', 'en');
     const author = fixture.nativeElement.querySelector('h1');
     const paragraphs = fixture.nativeElement.querySelectorAll('p');
