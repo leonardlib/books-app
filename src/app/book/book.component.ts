@@ -8,4 +8,11 @@ import { Book } from '../book';
 })
 export class BookComponent {
   @Input() book!: Book;
+  @Input() isLoading: boolean;
+  randomNumber: number;
+
+  constructor() {
+    this.isLoading = false;
+    this.randomNumber = Math.floor(Math.random() * 100);
+  }
 }
