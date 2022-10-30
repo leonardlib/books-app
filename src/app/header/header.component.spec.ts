@@ -26,7 +26,7 @@ describe('HeaderComponent', () => {
     const p = fixture.nativeElement.querySelector('p');
 
     // assert
-    expect(p.textContent).toContain(component.title);
+    expect(p.textContent).toContain('Bookstore');
   });
 
   it('should render the wishlist link', () => {
@@ -34,6 +34,6 @@ describe('HeaderComponent', () => {
     const a = fixture.nativeElement.querySelector('a');
 
     // assert
-    expect(a.textContent).toContain(component.wishlistLinkLabel);
+    expect(a.textContent).toContain('My Wishlist');
   });
 });
