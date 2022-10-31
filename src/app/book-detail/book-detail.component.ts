@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { selectBook } from '../app.selectors';
@@ -15,7 +15,11 @@ export class BookDetailComponent implements OnInit, OnDestroy {
   book!: Book;
   isLoading: boolean;
 
-  constructor(private route: ActivatedRoute, private store: Store) {
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private store: Store,
+  ) {
     this.isLoading = true;
   }
 
@@ -31,7 +35,11 @@ export class BookDetailComponent implements OnInit, OnDestroy {
       });
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.bookSubscription.unsubscribe();
+  }
+
+  onAdded(): void {
+    this.router.navigate(['/']);
   }
 }

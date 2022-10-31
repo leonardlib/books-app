@@ -14,6 +14,7 @@ import { appReducer } from './app.reducer';
 import { BookDetailComponent } from './book-detail/book-detail.component';
 import { WishlistComponent } from './wishlist/wishlist.component';
 import { BookCardComponent } from './book-card/book-card.component';
+import { TruncatePipe } from './truncate.pipe';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { BookCardComponent } from './book-card/book-card.component';
     BookDetailComponent,
     WishlistComponent,
     BookCardComponent,
+    TruncatePipe,
   ],
   imports: [
     BrowserModule,

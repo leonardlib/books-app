@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Book } from '../book.model';
 import { addToWishlist, removeFromWishlist } from '../app.actions';
@@ -13,7 +13,7 @@ export class BookCardComponent {
   @Input() isLoading: boolean;
   @Input() withDetails: boolean;
   @Input() canBeDeleted: boolean;
-  randomNumber = Math.floor(Math.random() * 100);
+  @Output() onAdded = new EventEmitter();
 
   constructor(private store: Store) {
     this.isLoading = false;
@@ -23,6 +23,7 @@ export class BookCardComponent {
 
   addToWishlist(): void {
     this.store.dispatch(addToWishlist({ book: this.book }));
+    this.onAdded.emit();
   }
 
   removeFromWishlist(): void {

@@ -25,6 +25,7 @@ export class SearchBarComponent implements OnInit {
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+    this.store.dispatch(filterBooks({ searchText: '' }));
   }
 
   inputChanged() {
