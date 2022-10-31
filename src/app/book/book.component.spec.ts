@@ -2,16 +2,17 @@ import { formatDate } from '@angular/common';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BookComponent } from './book.component';
-import { Book } from '../book';
+import { Book } from '../book.model';
 
 describe('BookComponent', () => {
   let component: BookComponent;
   let fixture: ComponentFixture<BookComponent>;
-  let book: Book = {
-    title: 'Alice. \'Come on.',
+  const book: Book = {
+    title: "Alice. 'Come on.",
     author: 'Gunnar Emmerich',
     genre: 'Sed',
-    description: 'King said to herself. Imagine her surprise, when the Rabbit came up to the Gryphon. \'How the creatures order one about, and called out \'The Queen! The Queen!\' and the Queen said to one of the words.',
+    description:
+      "King said to herself. Imagine her surprise, when the Rabbit came up to the Gryphon. 'How the creatures order one about, and called out 'The Queen! The Queen!' and the Queen said to one of the words.",
     isbn: '9793420397669',
     image: 'http://placeimg.com/480/640/any',
     published: '1979-03-04',
@@ -20,9 +21,8 @@ describe('BookComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BookComponent ]
-    })
-    .compileComponents();
+      declarations: [BookComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(BookComponent);
     component = fixture.componentInstance;
@@ -36,7 +36,10 @@ describe('BookComponent', () => {
 
   it('should render the book attributes', () => {
     // arrange
-    const description = book.description.length >= 90 ? book.description.slice(0, 87) + '...' : book.description;
+    const description =
+      book.description.length >= 90
+        ? book.description.slice(0, 87) + '...'
+        : book.description;
     const published = formatDate(book.published, 'mediumDate', 'en');
     const author = fixture.nativeElement.querySelector('h1');
     const paragraphs = fixture.nativeElement.querySelectorAll('p');

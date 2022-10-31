@@ -23,7 +23,7 @@ export class BookListComponent implements OnInit {
   getBooks(): void {
     this.isLoading = true;
     this.bookService.getBooks().subscribe(({ data }) => {
-      this.store.dispatch(getBooksReceived({ books: data }))
+      this.store.dispatch(getBooksReceived({ books: data }));
       this.isLoading = false;
     });
   }
