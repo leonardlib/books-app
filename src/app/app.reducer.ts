@@ -1,5 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import {
+  addToWishlist,
+  removeFromWishlist,
   filterBooks,
   getBooks,
   getBooksReceived,
@@ -13,6 +15,9 @@ export const initialState: AppState = {
     itemsCopy: [],
     status: REDUCER_STATUS.idle,
     error: undefined,
+  },
+  wishlist: {
+    items: [],
   },
 };
 
@@ -44,11 +49,54 @@ export const appReducer = createReducer(
   })),
   on(filterBooks, (state, { searchText }) => {
     const searchTextLower = searchText.toLowerCase();
-    state.books.items = state.books.itemsCopy.filter(
+    const filteredBooks = state.books.itemsCopy.filter(
       ({ title, author }) =>
         title.toLowerCase().includes(searchTextLower) ||
         author.toLowerCase().includes(searchTextLower),
     );
-    return state;
+    return {
+      ...state,
+      books: {
+        ...state.books,
+        items: filteredBooks,
+      },
+    };
+  }),
+  on(addToWishlist, (state, { book }) => {
+    const newBookItems = state.books.items.filter(
+      ({ isbn }) => isbn !== book.isbn,
+    );
+    const newBookItemsCopy = state.books.itemsCopy.filter(
+      ({ isbn }) => isbn !== book.isbn,
+    );
+    return {
+      ...state,
+      wishlist: {
+        ...state.wishlist,
+        items: [...state.wishlist.items, book],
+      },
+      books: {
+        ...state.books,
+        items: newBookItems,
+        itemsCopy: newBookItemsCopy,
+      },
+    };
+  }),
+  on(removeFromWishlist, (state, { book }) => {
+    const newWishlistItems = state.wishlist.items.filter(
+      ({ isbn }) => isbn !== book.isbn,
+    );
+    return {
+      ...state,
+      wishlist: {
+        ...state.wishlist,
+        items: newWishlistItems,
+      },
+      books: {
+        ...state.books,
+        items: [...state.books.items, book],
+        itemsCopy: [...state.books.itemsCopy, book],
+      },
+    };
   }),
 );

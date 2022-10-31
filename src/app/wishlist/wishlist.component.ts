@@ -1,14 +1,15 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { selectWishlist } from '../app.selectors';
-import { Subscription } from 'rxjs';
+import { Book } from '../book.model';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
+  selector: 'app-wishlist',
+  templateUrl: './wishlist.component.html',
 })
-export class HeaderComponent implements OnInit, OnDestroy {
-  booksNumber!: number;
+export class WishlistComponent {
+  books!: ReadonlyArray<Book>;
   wishlistSubscription!: Subscription;
 
   constructor(private store: Store) {}
@@ -17,7 +18,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.wishlistSubscription = this.store
       .select(selectWishlist)
       .subscribe((data) => {
-        this.booksNumber = data.items.length;
+        this.books = data.items;
       });
   }
 

@@ -17,3 +17,13 @@ export const filterBooks = createAction(
   'filterBooks',
   props<{ searchText: string }>(),
 );
+
+export const addToWishlist = createAction(
+  'addToWishlist',
+  props<{ book: Book }>(),
+);
+
+export const removeFromWishlist = createAction(
+  'removeFromWishlist',
+  props<{ book: Book }>(),
+);

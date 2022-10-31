@@ -29,7 +29,7 @@
     <div *ngIf="isLoading" class="w-6/12 mt-4 h-5 rounded-xl bg-slate-300"></div>
     <p *ngIf="!isLoading" class="w-full mt-2 text-md text-slate-500">
       {{
-        book.description.length >= 90
+        book.description.length >= 90 && !withDetails
           ? book.description.slice(0, 87) + '...'
           : book.description
       }}
@@ -40,25 +40,37 @@
     </div>
     <div class="flex mt-4 space-x-2">
       <button
-        *ngIf="!isLoading"
+        *ngIf="!isLoading && !canBeDeleted"
         class="h-10 px-6 font-semibold rounded-full bg-violet-600 text-white hover:bg-violet-800"
         type="button"
+        (click)="addToWishlist()"
       >
         Add
       </button>
       <div
-        *ngIf="isLoading"
+        *ngIf="isLoading && !canBeDeleted"
         class="w-20 h-10 rounded-full bg-slate-300">
       </div>
       <a
-        *ngIf="!isLoading"
+        *ngIf="!isLoading && !withDetails"
         class="flex items-center cursor-pointer h-10 px-6 font-semibold rounded-full bg-slate-200 text-black hover:bg-slate-300"
         [routerLink]="['book/' + book.isbn]"
       >
         Details
       </a>
       <div
-        *ngIf="isLoading"
+        *ngIf="isLoading && !withDetails"
+        class="w-20 h-10 rounded-full bg-slate-300">
+      </div>
+      <button
+        *ngIf="!isLoading && canBeDeleted"
+        class="flex items-center cursor-pointer h-10 px-6 font-semibold rounded-full bg-slate-200 text-black hover:bg-slate-300"
+        (click)="removeFromWishlist()"
+      >
+        Remove
+      </button>
+      <div
+        *ngIf="isLoading && canBeDeleted"
         class="w-20 h-10 rounded-full bg-slate-300">
       </div>
     </div>

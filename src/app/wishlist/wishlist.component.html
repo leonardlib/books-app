@@ -1,0 +1,8 @@
+<div class="grid grid-flow-row auto-rows-auto grid-cols-1 gap-y-16 mt-36 mb-20 max-w-4xl mx-auto">
+  <app-book-card
+    *ngFor="let book of books"
+    [book]="book"
+    [withDetails]="true"
+    [canBeDeleted]="true">
+  </app-book-card>
+</div>

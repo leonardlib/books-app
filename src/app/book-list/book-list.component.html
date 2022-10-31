@@ -1,15 +1,20 @@
 <div
-  class="grid grid-flow-row auto-rows-auto grid-cols-2 gap-x-8 gap-y-16 mt-36 mb-20 max-w-6xl mx-auto"
+  class="mt-28 mb-20 max-w-6xl mx-auto"
   infinite-scroll
   [infiniteScrollDistance]="2"
   [infiniteScrollThrottle]="1000"
   (scrolled)="getBooks()"
 >
-  <app-book *ngFor="let book of books" [book]="book"></app-book>
-  <ng-container *ngIf="isLoading">
-    <app-book [isLoading]="true"></app-book>
-    <app-book [isLoading]="true"></app-book>
-    <app-book [isLoading]="true"></app-book>
-    <app-book [isLoading]="true"></app-book>
-  </ng-container>
+  <div class="w-full flex items-center justify-center">
+    <app-search-bar></app-search-bar>
+  </div>
+  <div class="grid grid-flow-row auto-rows-auto grid-cols-2 gap-x-8 gap-y-16 mt-20">
+    <app-book-card *ngFor="let book of books" [book]="book"></app-book-card>
+    <ng-container *ngIf="isLoading">
+      <app-book-card [isLoading]="true"></app-book-card>
+      <app-book-card [isLoading]="true"></app-book-card>
+      <app-book-card [isLoading]="true"></app-book-card>
+      <app-book-card [isLoading]="true"></app-book-card>
+    </ng-container>
+  </div>
 </div>
