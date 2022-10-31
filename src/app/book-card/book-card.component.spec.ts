@@ -1,12 +1,12 @@
 import { formatDate } from '@angular/common';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BookComponent } from './book.component';
+import { BookCardComponent } from './book-card.component';
 import { Book } from '../book.model';
 
-describe('BookComponent', () => {
-  let component: BookComponent;
-  let fixture: ComponentFixture<BookComponent>;
+describe('BookCardComponent', () => {
+  let component: BookCardComponent;
+  let fixture: ComponentFixture<BookCardComponent>;
   const book: Book = {
     title: "Alice. 'Come on.",
     author: 'Gunnar Emmerich',
@@ -21,10 +21,10 @@ describe('BookComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [BookComponent],
+      declarations: [BookCardComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(BookComponent);
+    fixture = TestBed.createComponent(BookCardComponent);
     component = fixture.componentInstance;
     component.book = book;
     fixture.detectChanges();

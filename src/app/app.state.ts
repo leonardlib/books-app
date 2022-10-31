@@ -8,6 +8,9 @@ export interface AppState {
     status: ReducerStatus;
     error?: string;
   };
+  wishlist: {
+    items: ReadonlyArray<Book>;
+  };
 }
 
 export const REDUCER_STATUS = {

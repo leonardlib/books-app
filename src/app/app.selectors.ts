@@ -9,3 +9,8 @@ export const selectBook = (isbnFromRoute: string) =>
   createSelector(selectBooks, (books) =>
     books.items.find(({ isbn }) => isbn === isbnFromRoute),
   );
+
+export const selectWishlist = createSelector(
+  selectState,
+  ({ wishlist }) => wishlist,
+);
