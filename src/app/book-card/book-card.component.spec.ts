@@ -1,8 +1,11 @@
 import { formatDate } from '@angular/common';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideMockStore } from '@ngrx/store/testing';
 
 import { BookCardComponent } from './book-card.component';
 import { Book } from '../book.model';
+import { initialState } from '../app.reducer';
+import { TruncatePipe } from '../truncate.pipe';
 
 describe('BookCardComponent', () => {
   let component: BookCardComponent;
@@ -21,7 +24,8 @@ describe('BookCardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [BookCardComponent],
+      declarations: [BookCardComponent, TruncatePipe],
+      providers: [provideMockStore({ initialState })],
     }).compileComponents();
 
     fixture = TestBed.createComponent(BookCardComponent);
@@ -36,14 +40,13 @@ describe('BookCardComponent', () => {
 
   it('should render the book attributes', () => {
     // arrange
-    const description =
-      book.description.length >= 90
-        ? book.description.slice(0, 87) + '...'
-        : book.description;
+    const truncatePipe = new TruncatePipe();
+    const description = truncatePipe.transform(book.description);
     const published = formatDate(book.published, 'mediumDate', 'en');
     const author = fixture.nativeElement.querySelector('h1');
     const paragraphs = fixture.nativeElement.querySelectorAll('p');
     const button = fixture.nativeElement.querySelector('button');
+    const a = fixture.nativeElement.querySelector('a');
 
     // assert
     expect(author.textContent).toContain(book.author);
@@ -51,6 +54,7 @@ describe('BookCardComponent', () => {
     expect(paragraphs[1].textContent).toContain(book.title);
     expect(paragraphs[2].textContent).toContain(description);
     expect(button.textContent).toContain('Add');
+    expect(a.textContent).toContain('Details');
     expect(paragraphs[3].textContent).toContain(book.isbn);
     expect(paragraphs[4].textContent).toContain(published);
   });
