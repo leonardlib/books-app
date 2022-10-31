@@ -38,16 +38,29 @@
       *ngIf="isLoading"
       class="w-full mt-4 h-20 rounded-xl bg-slate-300">
     </div>
-    <button
-      *ngIf="!isLoading"
-      class="mt-4 h-10 px-6 font-semibold rounded-full bg-violet-600 text-white hover:bg-violet-800"
-      type="submit"
-    >
-      Add
-    </button>
-    <div
-      *ngIf="isLoading"
-      class="w-20 mt-4 h-10 rounded-full bg-slate-300">
+    <div class="flex mt-4 space-x-2">
+      <button
+        *ngIf="!isLoading"
+        class="h-10 px-6 font-semibold rounded-full bg-violet-600 text-white hover:bg-violet-800"
+        type="button"
+      >
+        Add
+      </button>
+      <div
+        *ngIf="isLoading"
+        class="w-20 h-10 rounded-full bg-slate-300">
+      </div>
+      <a
+        *ngIf="!isLoading"
+        class="flex items-center cursor-pointer h-10 px-6 font-semibold rounded-full bg-slate-200 text-black hover:bg-slate-300"
+        [routerLink]="['book/' + book.isbn]"
+      >
+        Details
+      </a>
+      <div
+        *ngIf="isLoading"
+        class="w-20 h-10 rounded-full bg-slate-300">
+      </div>
     </div>
     <div class="w-full flex mt-4 items-center justify-between">
       <p *ngIf="!isLoading" class="text-sm text-slate-400">

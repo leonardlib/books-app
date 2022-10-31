@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Subject, Subscription, debounceTime } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { filterBooks } from '../book.actions';
+import { filterBooks } from '../app.actions';
 
 @Component({
   selector: 'app-search-bar',

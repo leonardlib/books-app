@@ -9,10 +9,9 @@ import { Book } from '../book.model';
 export class BookComponent {
   @Input() book!: Book;
   @Input() isLoading: boolean;
-  randomNumber: number;
+  randomNumber = Math.floor(Math.random() * 100);
 
   constructor() {
     this.isLoading = false;
-    this.randomNumber = Math.floor(Math.random() * 100);
   }
 }

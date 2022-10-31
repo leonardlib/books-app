@@ -1,30 +1,38 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
+import { selectBooks } from '../app.selectors';
 import { BookService } from '../book.service';
-import { selectBooks } from '../book.selectors';
-import { getBooksReceived } from '../book.actions';
+import { Book } from '../book.model';
+import { REDUCER_STATUS } from '../app.state';
 
 @Component({
   selector: 'app-book-list',
   templateUrl: './book-list.component.html',
 })
-export class BookListComponent implements OnInit {
-  books$ = this.store.select(selectBooks);
+export class BookListComponent implements OnInit, OnDestroy {
+  books!: ReadonlyArray<Book>;
   isLoading: boolean;
+  booksSubscription!: Subscription;
 
   constructor(private store: Store, private bookService: BookService) {
     this.isLoading = true;
   }
 
   ngOnInit(): void {
-    this.getBooks();
+    this.booksSubscription = this.store
+      .select(selectBooks)
+      .subscribe((data) => {
+        this.books = data.items;
+        this.isLoading = data.status !== REDUCER_STATUS.resolved;
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.booksSubscription.unsubscribe();
   }
 
   getBooks(): void {
-    this.isLoading = true;
-    this.bookService.getBooks().subscribe(({ data }) => {
-      this.store.dispatch(getBooksReceived({ books: data }));
-      this.isLoading = false;
-    });
+    this.bookService.getBooks();
   }
 }
