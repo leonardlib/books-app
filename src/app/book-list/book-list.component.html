@@ -5,7 +5,7 @@
   [infiniteScrollThrottle]="1000"
   (scrolled)="getBooks()"
 >
-  <app-book *ngFor="let book of books$ | async" [book]="book"></app-book>
+  <app-book *ngFor="let book of books" [book]="book"></app-book>
   <ng-container *ngIf="isLoading">
     <app-book [isLoading]="true"></app-book>
     <app-book [isLoading]="true"></app-book>

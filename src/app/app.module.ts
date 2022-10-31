@@ -11,7 +11,8 @@ import { HeaderComponent } from './header/header.component';
 import { BookComponent } from './book/book.component';
 import { BookListComponent } from './book-list/book-list.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
-import { bookReducer } from './book.reducer';
+import { appReducer } from './app.reducer';
+import { BookDetailComponent } from './book-detail/book-detail.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { bookReducer } from './book.reducer';
     BookComponent,
     BookListComponent,
     SearchBarComponent,
+    BookDetailComponent,
   ],
   imports: [
     BrowserModule,
@@ -27,7 +29,7 @@ import { bookReducer } from './book.reducer';
     AppRoutingModule,
     InfiniteScrollModule,
     FormsModule,
-    StoreModule.forRoot({ bookReducer }, {}),
+    StoreModule.forRoot({ appReducer }, {}),
   ],
   providers: [],
   bootstrap: [AppComponent],
