@@ -19,7 +19,7 @@ import { bookReducer } from './book.reducer';
     HeaderComponent,
     BookComponent,
     BookListComponent,
-    SearchBarComponent
+    SearchBarComponent,
   ],
   imports: [
     BrowserModule,
@@ -27,9 +27,9 @@ import { bookReducer } from './book.reducer';
     AppRoutingModule,
     InfiniteScrollModule,
     FormsModule,
-    StoreModule.forRoot({ books: bookReducer }, {}),
+    StoreModule.forRoot({ bookReducer }, {}),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Subject, Subscription, debounceTime } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { filterBooks } from '../book.actions';
 
 @Component({
   selector: 'app-search-bar',
@@ -8,25 +10,21 @@ import { Subject, Subscription, debounceTime } from 'rxjs';
 export class SearchBarComponent implements OnInit {
   private modelChanged: Subject<string> = new Subject<string>();
   private subscription!: Subscription;
-  private debounceTime: number = 500;
+  private debounceTime = 500;
   searchText!: string;
+
+  constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.subscription = this.modelChanged
-      .pipe(
-        debounceTime(this.debounceTime),
-      )
+      .pipe(debounceTime(this.debounceTime))
       .subscribe(() => {
-        this.filterBooks();
+        this.store.dispatch(filterBooks({ searchText: this.searchText }));
       });
   }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
-  }
-
-  filterBooks() {
-    console.log('filter books');
   }
 
   inputChanged() {

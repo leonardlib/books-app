@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Book } from './book.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BookService {
   constructor(private http: HttpClient) {}
@@ -13,8 +13,9 @@ export class BookService {
       'https://fake-data3.p.rapidapi.com/fk/books',
       {
         headers: {
-          'X-RapidAPI-Key': '308292677emsh103c111a2fc8994p1ec99ajsnba89eed0e4bd',
-          'X-RapidAPI-Host': 'fake-data3.p.rapidapi.com'
+          'X-RapidAPI-Key':
+            '308292677emsh103c111a2fc8994p1ec99ajsnba89eed0e4bd',
+          'X-RapidAPI-Host': 'fake-data3.p.rapidapi.com',
         },
       },
     );
