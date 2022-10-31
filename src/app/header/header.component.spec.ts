@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideMockStore } from '@ngrx/store/testing';
 
 import { HeaderComponent } from './header.component';
+import { initialState } from '../app.reducer';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -9,6 +11,7 @@ describe('HeaderComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [HeaderComponent],
+      providers: [provideMockStore({ initialState })],
     }).compileComponents();
 
     fixture = TestBed.createComponent(HeaderComponent);
@@ -20,19 +23,12 @@ describe('HeaderComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should render the title', () => {
+  it('should render the title and the wishlist link', () => {
     // arrange
-    const p = fixture.nativeElement.querySelector('p');
+    const links = fixture.nativeElement.querySelectorAll('a');
 
     // assert
-    expect(p.textContent).toContain('Bookstore');
-  });
-
-  it('should render the wishlist link', () => {
-    // arrange
-    const a = fixture.nativeElement.querySelector('a');
-
-    // assert
-    expect(a.textContent).toContain('My Wishlist');
+    expect(links[0].textContent).toContain('Bookstore');
+    expect(links[1].textContent).toContain('My Wishlist');
   });
 });
